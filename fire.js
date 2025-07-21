@@ -1,59 +1,23 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js'
-import { getFirestore, collection, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-// import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js'
-// TODO: Replace the following with your app's Firebase project configuration
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyCscPJ_aIJ7EUkLqJEQlAQa5SmcEr22Mzc",
+    authDomain: "toscanocombr-1d11f.firebaseapp.com",
+    projectId: "toscanocombr-1d11f",
+    storageBucket: "toscanocombr-1d11f.firebasestorage.app",
+    messagingSenderId: "929855621300",
+    appId: "1:929855621300:web:7a60af14894cc89807efe1",
+    measurementId: "G-9CQ1BV23PE"
+  };
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBif4hFKR4_D5iv62H_36ENUotecTe0cy0",
-  authDomain: "pulsiveapp.firebaseapp.com",
-  projectId: "pulsiveapp",
-  storageBucket: "pulsiveapp.appspot.com",
-  messagingSenderId: "487759123498",
-  appId: "1:487759123498:web:e9eef1a827ffecdd095f53",
-  measurementId: "G-1FVM76L0BJ"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-
-
-// Get a list of cities from your database
-async function getCities(db) {
-  const citiesCol = collection(db, 'site');
-  const citySnapshot = await getDocs(citiesCol);
-  const cityList = citySnapshot.docs.map(doc => doc.data());
-  return cityList;
-}
-var sites = getCities(db)
-
-console.log(sites)
-console.log('teste')
-
-
-
-
-
-function openModal() {
-
-  var clickedImageSrc = this.src;
-  var modalImage = document.querySelector("#myModal img");
-  var modal = document.getElementById("myModal");
-  
-  modalImage.src = clickedImageSrc;
-  modal.style.display = "block";
-  modal.style.display = "block";
-}
-
-var images = document.querySelectorAll("#insta-pulsive img");
-images.forEach(function(image) {
-  image.addEventListener("click", openModal);
-});
-
-document.addEventListener("keydown", function(event) {
-  if (event.key === "Escape") {
-      var modal = document.getElementById("myModal");
-      modal.style.display = "none";
-  }
-});
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
