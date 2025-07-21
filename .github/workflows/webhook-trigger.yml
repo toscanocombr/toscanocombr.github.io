@@ -1,0 +1,142 @@
+name: Webhook Trigger Update
+
+on:
+  # Webhook trigger personalizado
+  repository_dispatch:
+    types: [update-site-webhook]
+  
+  # Trigger via API externa
+  workflow_dispatch:
+    inputs:
+      source:
+        description: 'Fonte da atualização'
+        required: false
+        default: 'manual'
+      message:
+        description: 'Mensagem personalizada'
+        required: false
+        default: 'Atualização via webhook'
+
+env:
+  TZ: America/Sao_Paulo
+
+jobs:
+  webhook-update:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+    
+    - name: Get trigger info
+      run: |
+        echo "CURRENT_TIME=$(TZ=America/Sao_Paulo date +'%Y-%m-%d %H:%M:%S %Z')" >> $GITHUB_ENV
+        echo "UPDATE_DATE=$(TZ=America/Sao_Paulo date +'%Y-%m-%d')" >> $GITHUB_ENV
+        
+        # Informações do trigger
+        if [ "${{ github.event_name }}" == "repository_dispatch" ]; then
+          echo "TRIGGER_SOURCE=webhook" >> $GITHUB_ENV
+          echo "TRIGGER_MESSAGE=Atualização via webhook externo" >> $GITHUB_ENV
+        elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+          echo "TRIGGER_SOURCE=${{ github.event.inputs.source }}" >> $GITHUB_ENV
+          echo "TRIGGER_MESSAGE=${{ github.event.inputs.message }}" >> $GITHUB_ENV
+        else
+          echo "TRIGGER_SOURCE=unknown" >> $GITHUB_ENV
+          echo "TRIGGER_MESSAGE=Trigger desconhecido" >> $GITHUB_ENV
+        fi
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        # Adicione dependências conforme necessário
+    
+    - name: Update content via webhook
+      run: |
+        echo "🔗 Processando webhook trigger..."
+        echo "📝 Fonte: $TRIGGER_SOURCE"
+        echo "💬 Mensagem: $TRIGGER_MESSAGE"
+        echo "⏰ Horário: $CURRENT_TIME"
+        
+        # Execute atualizações baseadas no webhook
+        if [ -f "get_playlist_builtin.py" ]; then
+          echo "🎬 Atualizando playlist..."
+          python get_playlist_builtin.py
+        fi
+        
+        # Log da atualização
+        cat > webhook_update.log << EOF
+        Webhook Update Log
+        ==================
+        Timestamp: $CURRENT_TIME
+        Source: $TRIGGER_SOURCE
+        Message: $TRIGGER_MESSAGE
+        Event: ${{ github.event_name }}
+        Actor: ${{ github.actor }}
+        EOF
+        
+        echo "✅ Conteúdo atualizado via webhook"
+    
+    - name: Check for changes
+      id: verify-changed-files
+      run: |
+        if [ -n "$(git status --porcelain)" ]; then
+          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "📋 Mudanças detectadas via webhook:"
+          git status --short
+        else
+          echo "changed=false" >> $GITHUB_OUTPUT
+          echo "ℹ️ Nenhuma mudança detectada"
+        fi
+    
+    - name: Commit webhook changes
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      run: |
+        git config --local user.email "webhook@github.com"
+        git config --local user.name "Webhook Trigger"
+        
+        git add .
+        git commit -m "🔗 $TRIGGER_MESSAGE - $UPDATE_DATE
+        
+        - Trigger: $TRIGGER_SOURCE
+        - Executado via: ${{ github.event_name }}
+        - Horário: $CURRENT_TIME
+        - Ator: ${{ github.actor }}"
+        
+        git push
+        
+        echo "✅ Mudanças do webhook commitadas"
+    
+    - name: Deploy webhook changes
+      if: steps.verify-changed-files.outputs.changed == 'true'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
+        publish_branch: gh-pages
+        force_orphan: true
+    
+    - name: Webhook completion
+      run: |
+        echo "🎯 Webhook processado com sucesso!"
+        echo "📊 Detalhes:"
+        echo "  - Fonte: $TRIGGER_SOURCE"
+        echo "  - Evento: ${{ github.event_name }}"
+        echo "  - Horário: $CURRENT_TIME"
+        
+        if [ "${{ steps.verify-changed-files.outputs.changed }}" == "true" ]; then
+          echo "✅ Site atualizado e deployado via webhook"
+        else
+          echo "ℹ️ Webhook processado, mas nenhuma mudança necessária"
+        fi

@@ -1,0 +1,14 @@
+COMO USAR OS ARQUIVOS GERADOS:
+========================================
+
+1. Abra o arquivo 'thumbnails.html'
+2. Copie todo o conteúdo
+3. No seu index.html, encontre a linha com:
+   <!-- Adicione seus vídeos aqui seguindo este formato: -->
+4. Substitua os comentários de exemplo pelo conteúdo copiado
+5. Salve e teste o site
+
+ARQUIVOS GERADOS:
+- thumbnails.html: HTML pronto para usar
+- playlist_data.json: Dados em formato JSON
+- Total de 9 vídeos extraídos
