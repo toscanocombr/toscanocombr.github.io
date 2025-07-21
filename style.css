@@ -124,11 +124,13 @@ body * {
 }
 
 .video-item {
+    position: relative;
     border-radius: 12px;
     overflow: hidden;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
     transition: transform 0.2s ease;
+    cursor: pointer;
 }
 
 .video-item:hover {
@@ -136,11 +138,36 @@ body * {
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
-.video-item iframe {
+.video-item img {
     width: 100%;
-    height: 80px !important;
+    height: 80px;
+    object-fit: cover;
     display: block;
     border-radius: 12px;
+}
+
+.play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.3s ease;
+    opacity: 0.9;
+}
+
+.video-item:hover .play-button {
+    background: rgba(255, 0, 0, 0.9);
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
 }
 
 
@@ -151,8 +178,14 @@ body * {
         gap: 12px;
     }
     
-    .video-item iframe {
-        height: 80px !important;
+    .video-item img {
+        height: 80px;
+    }
+    
+    .play-button {
+        width: 25px;
+        height: 25px;
+        font-size: 10px;
     }
 }
 
@@ -162,8 +195,8 @@ body * {
         gap: 12px;
     }
     
-    .video-item iframe {
-        height: 80px !important;
+    .video-item img {
+        height: 80px;
     }
 }
 #claim-pulsive {
