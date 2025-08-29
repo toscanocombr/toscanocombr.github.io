@@ -11,4 +11,4 @@ COMO USAR OS ARQUIVOS GERADOS:
 ARQUIVOS GERADOS:
 - thumbnails.html: HTML pronto para usar
 - playlist_data.json: Dados em formato JSON
-- Total de 1 vídeos extraídos
+- Total de 8 vídeos extraídos
