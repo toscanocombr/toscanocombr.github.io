@@ -13,7 +13,7 @@
   },
   {
     "id": "ipmcPyiQxY0",
-    "title": "Vídeo 3",
+    "title": "Spherical Videos",
     "url": "https://www.youtube.com/watch?v=ipmcPyiQxY0",
     "thumbnail": "https://img.youtube.com/vi/ipmcPyiQxY0/mqdefault.jpg"
   },
@@ -46,5 +46,11 @@
     "title": "Vídeo 8",
     "url": "https://www.youtube.com/watch?v=XNlo5ZxRhRQ",
     "thumbnail": "https://img.youtube.com/vi/XNlo5ZxRhRQ/mqdefault.jpg"
+  },
+  {
+    "id": "ahCyWD9fbFo",
+    "title": "Vídeo 9",
+    "url": "https://www.youtube.com/watch?v=ahCyWD9fbFo",
+    "thumbnail": "https://img.youtube.com/vi/ahCyWD9fbFo/mqdefault.jpg"
   }
 ]
