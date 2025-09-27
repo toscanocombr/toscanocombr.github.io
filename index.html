@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-bt" class="">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Q9131SVYWC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-Q9131SVYWC');
+</script>    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulsive App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="header"></div>
+    <div id="container">
+        <div id="profile">
+            <img src="./assets/toscano.png" alt="marcelo toscano">
+            <h1 id="name">Marcelo Toscano</h1>
+            <div id="social-links">
+                <a href="https://youtube.com/@theveryboringvlog" target="_blank">
+                    <ion-icon name="logo-youtube"></ion-icon>
+                </a>
+                <a href="https://instagram.com/toscano.com.br" target="_blank">
+                    <ion-icon name="logo-instagram"></ion-icon>
+                </a>
+            </div>    
+            <h3 id="bio">
+            </h3>
+        </div>
+    </div>
+    <div id="content">
+        <div id="youtube">
+            <iframe id="main-video" width="560" height="315" src="https://www.youtube.com/embed/vekHVS1dILs?si=1aFKBjN1Raac8cvD"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            
+            <div id="playlist-thumbnails">
+                <div class="videos-grid">
+                    <div class="video-item" data-video-id="ipmcPyiQxY0">
+                        <img src="https://img.youtube.com/vi/ipmcPyiQxY0/mqdefault.jpg" alt="Bar Asa Delta - Vista da cidade de Santos">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-item" data-video-id="Zi02ZjF1KqQ">
+                        <img src="https://img.youtube.com/vi/Zi02ZjF1KqQ/mqdefault.jpg" alt="Fim da escala 6x1 ou melhor fim da CLT">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-item" data-video-id="a7t_ZbZgAmM">
+                        <img src="https://img.youtube.com/vi/a7t_ZbZgAmM/mqdefault.jpg" alt="Vamos conhecer a nova Decathlon de Santos">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-item" data-video-id="v7onj7Hibfw">
+                        <img src="https://img.youtube.com/vi/v7onj7Hibfw/mqdefault.jpg" alt="Passeio de barco em Santos">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-item" data-video-id="43K9uskCVp8">
+                        <img src="https://img.youtube.com/vi/43K9uskCVp8/mqdefault.jpg" alt="Terminal Rodoviário de Santos">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-item" data-video-id="Z6XXIXgEZY0">
+                        <img src="https://img.youtube.com/vi/Z6XXIXgEZY0/mqdefault.jpg" alt="Centro histórico de Santos">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-item" data-video-id="ahCyWD9fbFo">
+                        <img src="https://img.youtube.com/vi/ahCyWD9fbFo/mqdefault.jpg" alt="Teleférico do Monte Serrat - Santos SP">
+                        <div class="play-button">▶</div>
+                    </div>
+                    <div class="video-item" data-video-id="XNlo5ZxRhRQ">
+                        <img src="https://img.youtube.com/vi/XNlo5ZxRhRQ/mqdefault.jpg" alt="Aquário de Santos - Uma tarde diferente">
+                        <div class="play-button">▶</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ul id="links">
+            <li>
+                <a href="https://wise.com/invite/ihpw/marcelot557" target="_blank">Abra sua conta na Wise sem tarifa</a>            
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">Ganhe de R$0 a R$1.000.000,00 trabalhando na internet com celular.</a>
+            </li>
+        </ul>
+    </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <img src="" alt="Image">
+        </div>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script type='module' src="fire.js"></script>
+    
+    <script>
+        // Funcionalidade dos thumbnails
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoItems = document.querySelectorAll('.video-item');
+            const mainVideo = document.getElementById('main-video');
+            
+            videoItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const videoId = this.getAttribute('data-video-id');
+                    if (videoId && mainVideo) {
+                        // Opção 1: Trocar vídeo no player principal
+                        mainVideo.src = `https://www.youtube.com/embed/${videoId}?si=1aFKBjN1Raac8cvD`;
+                        
+                        // Opção 2: Abrir em nova aba (descomente a linha abaixo e comente a de cima)
+                        // window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+                        
+                        // Scroll suave para o vídeo principal
+                        mainVideo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>
